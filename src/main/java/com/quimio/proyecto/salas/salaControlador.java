@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 
 @RestController
@@ -12,6 +13,18 @@ public class salaControlador {
 
     @Autowired
     private salaService salaService;
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseBody
+    public String handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String name = ex.getName();
+        String type = ex.getRequiredType().getSimpleName();
+        Object value = ex.getValue();
+        String message = String.format("'%s' Deberia ser '%s' y '%s', por favor ponga el tipo correcto!",
+                name, type, value);
+
+        return message;
+    }
 
     @PostMapping("")
     public ResponseEntity<sala> addSala(@RequestBody sala sala) {
@@ -26,8 +39,13 @@ public class salaControlador {
             return salaService.listAll();
         }
         else{
-            int val = Integer.parseInt(capacidad);
-            return salaService.getSala(val);
+            try{
+                int val = Integer.parseInt(capacidad);
+                return salaService.getSala(val);
+            } catch(Exception f){
+                return null;
+            }
+
         }
     }
 
@@ -38,6 +56,7 @@ public class salaControlador {
 
     @DeleteMapping("/{id}")
     public void deleteSala(@PathVariable("id") Long id){
+        sala encontrado = salaService.getSala(id);
         salaService.deleteSala(id);
     }
 }

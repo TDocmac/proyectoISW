@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestController
 @RequestMapping("/api/personal")
@@ -20,6 +21,18 @@ public class personalControlador {
         return new ResponseEntity<personal>(med, HttpStatus.CREATED);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseBody
+    public String handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String name = ex.getName();
+        String type = ex.getRequiredType().getSimpleName();
+        Object value = ex.getValue();
+        String message = String.format("'%s' Deberia ser '%s' y '%s', por favor ponga el tipo correcto!",
+                name, type, value);
+
+        return message;
+    }
+
 
     @GetMapping("/{id}")
     public personal getPersonal(@PathVariable("id") Long id) {
@@ -28,6 +41,7 @@ public class personalControlador {
 
     @DeleteMapping("/{id}")
     public void deletePersonal(@PathVariable("id") Long id){
+        personal encontrado = personalService.getPersonal(id);
         personalService.deletePersonal(id);
     }
 

@@ -1,12 +1,9 @@
 package com.quimio.proyecto.sillones;
 
-import com.quimio.proyecto.salas.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class sillon {
@@ -16,9 +13,8 @@ public class sillon {
 
     private String estado;
 
-    @ManyToOne
-    @JoinColumn(name ="sala_id")
-    private sala sala;
+   
+    private String sala;
 
     private Long paciente;
 
@@ -32,11 +28,13 @@ public class sillon {
         return estado;
     }
 
-    public void setId(final Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public void setEstado(final String estado) {
+    public void setEstado(String estado)
+    {
         this.estado = estado;
     }
 
@@ -44,15 +42,15 @@ public class sillon {
         return paciente;
     }
 
-    public void setPaciente(final Long paciente) {
+    public void setPaciente(Long paciente) {
         this.paciente = paciente;
     }
 
-    public sala getSala() {
+    public String getSala() {
         return sala;
     }
 
-    public void setSala(final sala sala) {
+    public void setSala(String sala) {
         this.sala = sala;
     }
 

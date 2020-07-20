@@ -11,7 +11,7 @@ public class sillonNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(sillonNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String salaNotFoundHandler(sillonNotFoundException ex) {
+    String sillonNotFoundHandler(sillonNotFoundException ex) {
     return ex.getMessage();
   }
 }
