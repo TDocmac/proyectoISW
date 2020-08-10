@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/api/personal")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class personalControlador {
 
     @Autowired
@@ -32,7 +34,7 @@ public class personalControlador {
 
         return message;
     }
-
+    
 
     @GetMapping("/{id}")
     public personal getPersonal(@PathVariable("id") Long id) {
