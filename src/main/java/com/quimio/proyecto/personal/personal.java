@@ -20,7 +20,7 @@ public class personal {
     private String telefono;
     private String especialidad;
     private String turnos;
-    private int pass;
+    private String pass;
     private String cargo;
 
     public Long getId()
@@ -62,7 +62,7 @@ public class personal {
         return turnos;
     }
 
-    public int getPass(){
+    public String getPass(){
         return pass;
     }
 
@@ -115,7 +115,7 @@ public class personal {
         this.turnos= string;
     } 
 
-    public void setPass(int pass){
+    public void setPass(String pass){
         this.pass=pass;
     }
     
