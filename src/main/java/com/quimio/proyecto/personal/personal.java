@@ -23,6 +23,7 @@ public class personal {
     private String pass;
     private String cargo;
 
+    
     public Long getId()
     {
         return id;
