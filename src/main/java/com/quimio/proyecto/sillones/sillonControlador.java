@@ -58,8 +58,10 @@ public class sillonControlador {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<sillon> updatesillon(@PathVariable("id") Long id,@RequestBody sillon sillon) {
+    public ResponseEntity<sillon> updatesillon(@PathVariable("id") String idd,@RequestBody sillon sillon) {
+        long id = Long.parseLong(idd);
         sillon encontrado = sillonService.getSillon(id);
+        sillon.setId(id);
 
         sillon s = sillonService.saveOrUpdateSillon(sillon);
         return new ResponseEntity<sillon>(s, HttpStatus.CREATED);
