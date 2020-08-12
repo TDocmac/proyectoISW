@@ -13,7 +13,7 @@ public class personal {
     private Long id;
 
     private String nombre;
-    private String RUT;
+    private String rut;
     private int edad;
     private String fechaDeNacimiento;
     private String direccion;
@@ -35,7 +35,7 @@ public class personal {
     }
 
     public String getRUT(){
-        return RUT;
+        return rut;
     }
 
     public int getEdad()
@@ -83,7 +83,7 @@ public class personal {
 
     public void setRUT(String string)
     {
-        this.RUT= string;
+        this.rut= string;
     } 
 
     public void setEdad(int edad)
