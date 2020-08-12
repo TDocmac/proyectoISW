@@ -57,5 +57,14 @@ public class personalControlador {
             return personalService.getCargo(cargo);
         }
     }
+    @PostMapping("/{id}")
+    public ResponseEntity<personal> updatepersonal(@PathVariable("id") String idd,@RequestBody personal personal) {
+        long id = Long.parseLong(idd);
+        personal encontrado = personalService.getPersonal(id);
+        personal.setId(id);
+
+        personal s = personalService.saveOrUpdatePersonal(personal);
+        return new ResponseEntity<personal>(s, HttpStatus.CREATED);
+    }
 
 }

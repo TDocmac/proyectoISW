@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-
 @RestController
 @RequestMapping("/api/salas")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE})
@@ -60,5 +59,14 @@ public class salaControlador {
     public void deleteSala(@PathVariable("id") Long id){
         sala encontrado = salaService.getSala(id);
         salaService.deleteSala(id);
+    }
+    @PostMapping("/{id}")
+    public ResponseEntity<sala> updatesala(@PathVariable("id") String idd,@RequestBody sala sala) {
+        long id = Long.parseLong(idd);
+        sala encontrado = salaService.getSala(id);
+        sala.setId(id);
+
+        sala s = salaService.saveOrUpdateSala(sala);
+        return new ResponseEntity<sala>(s, HttpStatus.CREATED);
     }
 }
